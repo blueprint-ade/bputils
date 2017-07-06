@@ -6,7 +6,7 @@
 #' @param col_widths only used for reading fixed width files
 #'
 #' @return bound data from
-#' @export none
+#' @export
 #'
 #' @examples
 
@@ -46,7 +46,7 @@ folder_2stata <- function(dir_raw, dir_stata,
   for(file_name in used_file_names) {
     df_i  <- read_sav(paste0(dir_raw, file_name))
     new_name <- paste0(drop_extension(file_name), ".dta")
-    write_dta(df_i, paste0(dir_stata, new_name), version = 13)
+    haven::write_dta(df_i, paste0(dir_stata, new_name), version = 13)
     rm(df_i)
     gc()
 
@@ -124,7 +124,7 @@ drop_extension = function(file_name) {
 #'
 #' @examples
 read_raw_excel = function(file_name) {
-  raw_excel <- read_excel(file_name, sheet = 1, col_names = FALSE)
+  raw_excel <- readxl::read_excel(file_name, sheet = 1, col_names = FALSE)
   for(i in 1:nrow(raw_excel)) {
     nacount <- sum(is.na(raw_excel[i, ]))
     if(nacount == 0) {

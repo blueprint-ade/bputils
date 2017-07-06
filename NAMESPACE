@@ -2,6 +2,7 @@
 
 export(drop_extension)
 export(folder_2stata)
+export(folder_bind)
 export(get_reader)
 export(list_used_files)
 export(none)
