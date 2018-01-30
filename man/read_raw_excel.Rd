@@ -2,6 +2,7 @@
 % Please edit documentation in R/hello.R, R/utilities.R
 \name{read_raw_excel}
 \alias{read_raw_excel}
+\alias{read_raw_excel}
 \title{Title}
 \usage{
 read_raw_excel(file_name)
@@ -18,4 +19,3 @@ Title
 
 Automatically detect excel header
 }
-

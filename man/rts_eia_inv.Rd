@@ -15,4 +15,3 @@ df_eia_inv concatenated data frame
 \description{
 Read EIA involvement raw files into one data frame
 }
-

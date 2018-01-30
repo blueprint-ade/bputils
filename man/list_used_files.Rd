@@ -2,6 +2,7 @@
 % Please edit documentation in R/hello.R, R/utilities.R
 \name{list_used_files}
 \alias{list_used_files}
+\alias{list_used_files}
 \title{returns list of files of a given format}
 \usage{
 list_used_files(dir_raw, format)
@@ -25,4 +26,3 @@ returns list of files of a given format
 
 Get list of files to be processed
 }
-

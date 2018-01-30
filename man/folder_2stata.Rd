@@ -2,6 +2,7 @@
 % Please edit documentation in R/hello.R, R/utilities.R
 \name{folder_2stata}
 \alias{folder_2stata}
+\alias{folder_2stata}
 \title{batch convert a folder of dataframes into individual stata files with
 the same names}
 \usage{
@@ -33,4 +34,3 @@ the same names
 batch convert a folder of dataframes into individual stata files with
 the same names
 }
-

@@ -2,6 +2,7 @@
 % Please edit documentation in R/hello.R, R/utilities.R
 \name{get_reader}
 \alias{get_reader}
+\alias{get_reader}
 \title{Get a reader function for a file format}
 \usage{
 get_reader(format)
@@ -23,4 +24,3 @@ Get a reader function for a file format
 
 Get a reader function for a file format
 }
-

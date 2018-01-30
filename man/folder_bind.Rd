@@ -2,6 +2,7 @@
 % Please edit documentation in R/hello.R, R/utilities.R
 \name{folder_bind}
 \alias{folder_bind}
+\alias{folder_bind}
 \title{Bind a folder of separate data files with the same headings into one object
 takes excel, stata, spss, fixed width files, and standard table formats}
 \usage{
@@ -34,4 +35,3 @@ takes excel, stata, spss, fixed width files, and standard table formats
 Bind a folder of separate data files with the same headings into one object
 takes excel, stata, spss, fixed width files, and standard table formats
 }
-
