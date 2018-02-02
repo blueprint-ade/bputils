@@ -8,7 +8,7 @@
 #' @importFrom getPass getPass
 #' @importFrom qualtRics getSurvey registerOptions
 #' @examples
-read_survey <- function(survey_id, ...) {
+read_survey <- function(survey_id, labs = FALSE, ...) {
 
   registerOptions(
     api_token = decrypt_token("Z:/R/qxk.rds"),
@@ -17,7 +17,7 @@ read_survey <- function(survey_id, ...) {
   res <- tibble::as_tibble(getSurvey(
     surveyID = survey_id,
     save_dir = tempdir(),
-    useLabels = FALSE,
+    useLabels = labs,
     verbose = TRUE,
     force_request = TRUE, ...))
 

@@ -34,7 +34,7 @@ rts_eia_inv <- function(dir_eia, dir_stata) {
 #' @param col_widths only used for reading fixed width files
 #'
 #' @return bound data from
-#' @export none
+#' @export
 #'
 #' @examples
 
