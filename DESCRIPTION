@@ -1,17 +1,18 @@
 Package: bputils
 Type: Package
-Title: Convenience Functions for Handling Administrative Data
+Title: Convenience Functions for Handling Administrative Data and working with the Qualtrics API
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Includes utilities for binding folders of similar data and
-    converting folders of uniformly formatted tables to stata13 datasets
-License: What license is it under?
+Author: Thomas McManus
+Maintainer: Thomas McManus <tmcmanus@blueprint-ade.ca>
+Description: Includes a series of utility functions for handling research data
+License: GPL? I'm not really sure what to say here,
 Encoding: UTF-8
 LazyData: true
 Imports:
     haven,
-    readxl
+    readxl,
+    getPass,
+    sodium
 Depends:
     tidyverse
 RoxygenNote: 6.0.1
