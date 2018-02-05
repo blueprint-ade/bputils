@@ -4,7 +4,7 @@
 \alias{read_survey}
 \title{Get response data using a qualtrics survey id}
 \usage{
-read_survey(survey_id, ...)
+read_survey(survey_id, labs = FALSE, ...)
 }
 \arguments{
 \item{survey_id}{}
