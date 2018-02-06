@@ -61,7 +61,7 @@ tabulate_request <- function(url) {
   get <- qualtricsApiRequest("GET", url)
 
   get$result$elements %>%
-    map_df(~.[c("firstName", "lastName", "email", "id", "embeddedData")] %>% flatten())
+    map_df(~.[c("firstName", "lastName", "email", "id", "externalDataReference", "embeddedData")] %>% flatten())
 
 }
 
