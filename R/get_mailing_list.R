@@ -60,14 +60,9 @@ tabulate_request <- function(url) {
 
   get <- qualtricsApiRequest("GET", url)
 
-  df_embed <- get$result$elements %>% map_df(~(.$embeddedData)) %>%
-    filter(!is.na(`Reference Number`))
+  get$result$elements %>%
+    map_df(~.[c("firstName", "lastName", "email", "id", "embeddedData")] %>% flatten())
 
-  df_top_level <- get$result$elements %>%
-    map_df(~data_frame(firstName = pn(.$firstName), lastName = pn(.$lastName), email = pn(.$email), id = pn(.$id))) %>%
-    filter(firstName != "Missing")
-
- list(df_embed = df_embed, df_top_level = df_top_level)
 }
 
 
@@ -82,6 +77,14 @@ tabulate_request <- function(url) {
 pn <- function(x) {ifelse(is.null(x), "Missing", x)}
 
 
+#' xcollect all mailing lists associated with teh
+#'
+#' @param search
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_mailing_lists <- function(search = NULL) {
 
   root_url <- Sys.getenv("QUALTRICS_ROOT_URL")
