@@ -13,7 +13,7 @@ post_contacts <- function(new_contacts, list_id) {
   root_url <- Sys.getenv("QUALTRICS_ROOT_URL")
   ml_url <- appendRootUrl(root_url, list_id, type = "mailinglists")
 
-  if(!all(c("firstName", "lastName", "email", "Survey ID", "Location") %find% colnames(new_contacts))) {
+  if(!all(c("firstName", "lastName", "email", "Survey ID") %find% colnames(new_contacts))) {
 
     stop("new_contacts doesn't have the right columns.")
 
