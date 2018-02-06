@@ -46,8 +46,7 @@ generate_posts <- function(df_new_ids) {
         lastName  = .$lastName,
         email     = .$email,
         embeddedData = list(
-          `Survey ID` = .$`Survey ID`,
-          `Location` = .$Location))
+          `Survey ID` = .$`Survey ID`))
     ) %>% jsonlite::toJSON(auto_unbox = TRUE) %>%
       jsonlite::prettify() %>% str_sub(1, -1))
 
