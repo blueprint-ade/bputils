@@ -4,8 +4,8 @@
 \alias{tab}
 \title{Workflow / print / NSE friendly implementation of table()}
 \usage{
-tab(dat, x, y, n = TRUE, col = FALSE, row = FALSE, cell = FALSE,
-  row_p = FALSE, print = FALSE, total_row = FALSE, chisq = FALSE)
+tab(dat, x, y, n = FALSE, col = FALSE, row = FALSE, cell = FALSE,
+  row_p = FALSE, print = TRUE, total_row = FALSE, chisq = TRUE)
 }
 \arguments{
 \item{cell}{}

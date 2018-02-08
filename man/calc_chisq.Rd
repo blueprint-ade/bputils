@@ -4,7 +4,7 @@
 \alias{calc_chisq}
 \title{Calculate chisq and out-put a dataframe}
 \usage{
-calc_chisq(dat)
+calc_chisq(x, y)
 }
 \arguments{
 \item{dat}{results of a tablulation}

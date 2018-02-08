@@ -12,10 +12,10 @@
 #' @export
 #'
 #' @examples
-tab <- function(dat, x, y, n = TRUE,
+tab <- function(dat, x, y, n = FALSE,
                 col = FALSE, row = FALSE, cell = FALSE,
-                row_p = FALSE, print = FALSE, total_row = FALSE,
-                chisq = FALSE) {
+                row_p = FALSE, print = TRUE, total_row = FALSE,
+                chisq = TRUE) {
 
   quo_x <- enquo(x)
   quo_y <- enquo(y)
@@ -45,17 +45,6 @@ tab <- function(dat, x, y, n = TRUE,
     spread(m, val) %>%
     mutate_at(vars(starts_with("print")), funs(ifelse(is.na(.), "  -  ", .)))
 
-  if(chisq) {
-
-    tbl[is.na(tbl)] <- 0
-    chisq <- calc_chisq(tbl %>% select_if(is.numeric))
-
-  } else {
-
-    chisq = c(-99, -99)
-
-  }
-
 
   rep_count <- 7
 
@@ -69,29 +58,7 @@ tab <- function(dat, x, y, n = TRUE,
   if(!total_row) {tbl %<>% filter(!!quo_y != "Total")}
 
 
-
-
-  tbl_print <- tbl %>%
-    select(!!quo_y, r_total, starts_with("r_p"), starts_with("n"), everything())
-
-  kbl <- kablify(tbl_print)
-
-  len <- nchar(kbl[1])
-  dsc <- str_c("| Table of ", quo_name(quo_x), " ~ ", quo_name(quo_y))
-  dsc <- str_c(dsc, str_c(rep(" ", len - nchar(dsc) - 1), collapse = ""), "|")
-  chi <- str_c("| \u03C7 = ", round(chisq[1], 1), " p = ", round(chisq[2], 5))
-  chi <- str_c(chi, str_c(rep(" ", len - nchar(chi) - 1), collapse = ""), "|")
-
-  header <- str_c(dsc, "\n", chi)
-
-  cat(str_c("|:", str_c(rep("-", nchar(kbl[1]) - 4), collapse = ""), ":|"),
-      header,
-      str_c("|:", str_c(rep("-", nchar(kbl[1]) - 4), collapse = ""), ":|\n\n"),
-      kbl,
-      sep = "\n")
-
-
-  invisible(tbl)
+  tbl
 
 }
 
@@ -104,11 +71,10 @@ tab <- function(dat, x, y, n = TRUE,
 #' @export
 #'
 #' @examples
-calc_chisq <- function(dat) {
+calc_chisq <- function(x, y) {
 
-  x <- dat %>% ungroup() %>%
-    select(starts_with("n_")) %>%
-    chisq.test()
+  x <- chisq.test(x, y)
+
 
 
   tag <- data_frame(stat = x$statistic, p_val = x$p.value)
@@ -189,30 +155,3 @@ vec_correct <- function(x) {
   x
 
 }
-
-
-
-tab_test <- function(dat, x, y, n = TRUE, col = FALSE, row = FALSE, cell = FALSE, row_p = FALSE) {
-
-  quo_x <- enquo(x)
-  quo_y <- enquo(y)
-
-  dat %<>% select(!!quo_x, !!quo_y) %>% mutate_all(as.character)
-
-  add_row_p <- function(dat) dat %>% mutate(r_p = round(r_total / max(r_total), 2))
-
-
-  tbl <- dat %>%
-    add_total(!!quo_y) %>%
-    group_by(!!quo_x, !!quo_y) %>%
-    summarize(n = n()) %>%
-    group_by(!!quo_x) %>% mutate(c_total = sum(n)) %>%
-    group_by(!!quo_y) %>% mutate(r_total = sum(n)) %>%
-    ungroup() %>% mutate(N = sum(n)) %>%
-    mutate(cell = n / N,
-           col = n / c_total,
-           row = n / r_total)
-
-  tbl
-}
-

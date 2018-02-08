@@ -13,11 +13,13 @@ post_contacts <- function(new_contacts, list_id) {
   root_url <- Sys.getenv("QUALTRICS_ROOT_URL")
   ml_url <- appendRootUrl(root_url, list_id, type = "mailinglists")
 
-  if(!all(c("firstName", "lastName", "email", "Survey ID") %find% colnames(new_contacts))) {
+  if(!all(c("firstName", "lastName", "email", "externalDataRef", "Survey ID") %find% colnames(new_contacts))) {
 
     stop("new_contacts doesn't have the right columns.")
 
   }
+
+  print(ml_url)
 
   posts <- generate_posts(new_contacts)
 
@@ -45,7 +47,7 @@ generate_posts <- function(df_new_ids) {
         firstName = .$firstName,
         lastName  = .$lastName,
         email     = .$email,
-        externalDataReference = .$externalDataReference,
+        externalDataRef = .$externalDataRef,
         embeddedData = list(
           `Survey ID` = .$`Survey ID`))
     ) %>% jsonlite::toJSON(auto_unbox = TRUE) %>%
