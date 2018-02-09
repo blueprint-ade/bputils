@@ -12,7 +12,7 @@
 new_report <- function(title, folder, filename, header, ...) {
 
   write_n_log(
-    c(header, ...),  folder, filename
+    c(header(title), ...),  folder, filename
   )
 
 }
@@ -51,14 +51,15 @@ docx_header <- function(title) {
 
   sprintf(
     '---
-title: \"%s\"
-date: \"%s\"
-output:
+    title: \"%s\"
+    date: \"%s\"
+    output:
     word_document:
     reference_docx: "template.docx"
----', title, as.character(today()))
+    ---', title, as.character(today()))
 
 }
+
 
 
 
@@ -89,7 +90,7 @@ write_tab_list <- function(tab_list) {
 #' @export
 #'
 #' @examples
-tabset <- function(y, ..., by = NULL) {
+tabset <- function(y, ..., by = none) {
 
   by = enquo(by)
   vars <- quos(...)
@@ -103,7 +104,7 @@ tabset <- function(y, ..., by = NULL) {
 
   }
 
-  if(is.null(by)) {return(fun)} ##hard return if no by is specified
+  if(quo_name(by) == "none") {return(fun)} ##hard return if no by is specified
 
 
 
