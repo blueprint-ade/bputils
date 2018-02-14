@@ -15,6 +15,7 @@ jose_test <- function() {
 
   get_survey("SV_ekyHsGV6rs15Bc1")
 
+
 }
 
 
@@ -70,7 +71,13 @@ create_payload <- function(id, format = "csv", labs = FALSE, ...) {
 #' @examples
 get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "spss", labs = FALSE, ...) {
 
-  pl <- create_payload(id = "SV_ekyHsGV6rs15Bc1", format = "spss", labs = FALSE)#, ...)
+  if(Sys.getenv("QUALTRICS_API_KEY") == "") {
+
+    register_options()
+
+  }
+
+  pl <- create_payload(id = id, format = format, labs = labs, ...)
 
 
   root_url <- paste0(Sys.getenv("QUALTRICS_ROOT_URL"), "/API/v3/responseexports")
@@ -84,6 +91,13 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
 
   cat("post status: ", post_content$meta$httpStatus, "\n")
 
+  if(post_content$meta$httpStatus == "404") {
+
+    cat("Qualtrics can't find that ID right now, trying again...")
+    get_survey(id, folder = folder, fname = fname, format = format, labs = labs, ...)
+
+  }
+
   file_url <- paste0(root_url, "/", post_content$result$id, "/file")
 
   req <- httr::GET(file_url, httr::add_headers(headers()))
@@ -96,7 +110,11 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
 
   cat("zip file saved to", con, "\n")
 
-  res <- haven::read_spss(unzip(con, exdir = folder)) %>%
+  archive <- unzip(con, exdir = folder)
+
+  cat("extracted to", archive, "\n")
+
+  res <- haven::read_spss(archive) %>%
     haven::as_factor()
 
   cat("file extracted", "\n")

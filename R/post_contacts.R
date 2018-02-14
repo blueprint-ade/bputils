@@ -25,7 +25,7 @@ post_contacts <- function(new_contacts, list_id) {
 
   map(posts, ~cat(.))
 
-  posts %>% map(~qualtricsApiRequest("POST", url = ml_url, body = .))
+  posts %>% map(~httr::VERB("POST", url = ml_url, body = .))
 
 }
 
