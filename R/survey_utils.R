@@ -49,7 +49,6 @@ create_payload <- function(id, format = "csv", labs = FALSE, ...) {
 }
 
 
-
 #' Get an export of responses from a survey
 #'
 #' @param id
@@ -82,11 +81,26 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
     body = pl) %>%
     httr::content()
 
-  cat("post status: ", post_content$meta$httpStatus, "\n")
+
+  check_url <- paste0(root_url, "/", post_content$result$id)
+
+  check_request <- httr::VERB("GET", url = check_url, httr::add_headers(headers()))
+  print(check_request)
+
+  file_url <- paste0(check_url, "/file")
+
+  progress <- 0
+
+  while(progress < 100) {
+    cat("progress: \n")
+    check_request <- httr::VERB("GET", url = check_url, httr::add_headers(headers())) %>%
+      httr::content()
+    p <- check_request$result$percentComplete
+    cat(p, "\n")
+    progress <- p
 
 
-
-  file_url <- paste0(root_url, "/", post_content$result$id, "/file")
+  }
 
   req <- httr::GET(file_url, httr::add_headers(headers()))
 
@@ -100,6 +114,8 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
   }
 
   con = paste0(folder, "/", fname)
+
+
 
   writeBin(req$content, con = con)
 
