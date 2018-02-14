@@ -4,7 +4,7 @@
 \alias{tabset}
 \title{Make a set of tab functions to map onto any data with appropriate colnames}
 \usage{
-tabset(y, ...)
+tabset(y, ..., by = none)
 }
 \arguments{
 \item{...}{}

@@ -70,7 +70,7 @@ create_payload <- function(id, format = "csv", labs = FALSE, ...) {
 #' @examples
 get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "spss", labs = FALSE, ...) {
 
-  pl <- create_payload(id = id, format = format, labs = FALSE)
+  pl <- create_payload(id = id, format = format, labs = FALSE, ...)
 
   headers <-   c(
     'X-API-TOKEN' = Sys.getenv("QUALTRICS_API_KEY"),
