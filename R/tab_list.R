@@ -12,7 +12,7 @@
 new_report <- function(title, folder, filename, header, ...) {
 
   write_n_log(
-    c(header(title), ...),  folder, filename
+    c(header, ...),  folder, filename
   )
 
 }
@@ -50,13 +50,13 @@ output:
 docx_header <- function(title) {
 
   sprintf(
-    '---
-    title: \"%s\"
-    date: \"%s\"
-    output:
+'---
+title: \"%s\"
+date: \"%s\"
+output:
     word_document:
-    reference_docx: "template.docx"
-    ---', title, as.character(today()))
+        reference_docx: "template.docx"
+---', title, as.character(today()))
 
 }
 
