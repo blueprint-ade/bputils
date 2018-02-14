@@ -6,13 +6,6 @@
 #' @examples
 jose_test <- function() {
 
-  if(Sys.getenv("QUALTRICS_API_KEY") == "") {
-
-    register_options()
-
-  }
-
-
   get_survey("SV_ekyHsGV6rs15Bc1")
 
 
@@ -91,18 +84,20 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
 
   cat("post status: ", post_content$meta$httpStatus, "\n")
 
-  if(post_content$meta$httpStatus == "404") {
 
-    cat("Qualtrics can't find that ID right now, trying again...")
-    get_survey(id, folder = folder, fname = fname, format = format, labs = labs, ...)
-
-  }
 
   file_url <- paste0(root_url, "/", post_content$result$id, "/file")
 
   req <- httr::GET(file_url, httr::add_headers(headers()))
 
   cat("get status: ", req$status_code, "\n")
+
+  if(req$status_code == 404) {
+
+    cat("Qualtrics can't find that ID right now, trying again...\n")
+    get_survey(id, folder = folder, fname = fname, format = format, labs = labs, ...)
+
+  }
 
   con = paste0(folder, "/", fname)
 
