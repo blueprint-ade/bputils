@@ -70,36 +70,41 @@ create_payload <- function(id, format = "csv", labs = FALSE, ...) {
 #' @examples
 get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "spss", labs = FALSE, ...) {
 
-  pl <- create_payload(id = id, format = format, labs = FALSE, ...)
+  pl <- create_payload(id = "SV_ekyHsGV6rs15Bc1", format = "spss", labs = FALSE)#, ...)
 
-  headers <-   c(
-    'X-API-TOKEN' = Sys.getenv("QUALTRICS_API_KEY"),
-    'Content-Type' = "application/json",
-    'Accept' = '*/*',
-    'accept-encoding' = 'gzip, deflate'
-  )
 
   root_url <- paste0(Sys.getenv("QUALTRICS_ROOT_URL"), "/API/v3/responseexports")
 
+
   post_content <-httr::VERB("POST",
     url = root_url,
-    httr::add_headers(headers),
+    httr::add_headers(headers()),
     body = pl) %>%
     httr::content()
 
+  cat("post status: ", post_content$meta$httpStatus, "\n")
+
   file_url <- paste0(root_url, "/", post_content$result$id, "/file")
 
-  req <- httr::GET(file_url, httr::add_headers(headers))
+  req <- httr::GET(file_url, httr::add_headers(headers()))
+
+  cat("get status: ", req$status_code, "\n")
 
   con = paste0(folder, "/", fname)
 
   writeBin(req$content, con = con)
 
+  cat("zip file saved to", con, "\n")
+
   res <- haven::read_spss(unzip(con, exdir = folder)) %>%
     haven::as_factor()
 
+  cat("file extracted", "\n")
+
   list.files(folder, full.names = TRUE) %>%
     map(file.remove)
+
+  cat("cleanup complete")
 
 
   return(res)
