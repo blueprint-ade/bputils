@@ -113,3 +113,35 @@ tabset <- function(y, ..., by = none) {
 
 
 }
+
+
+
+
+tester <- function(args = list(n = FALSE, print = FALSE, row = TRUE, row_p = TRUE)) {
+
+
+
+  mpg %>% tab(cyl, drv, args)
+
+
+
+
+}
+
+
+poop <- function(...) {
+
+  x <- quos(...)
+  y <- list(...)
+  z <- quos(x = 5, y = 10)
+  z_list <- quos(list(x = 5, y = 10))
+
+  sumxy(UQ(y))
+
+  # print(x)
+  # print(y)
+  # print(z)
+
+}
+
+
