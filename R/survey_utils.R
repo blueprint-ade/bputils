@@ -95,8 +95,13 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
     check_request <- httr::VERB("GET", url = check_url, httr::add_headers(headers())) %>%
       httr::content()
     p <- floor(check_request$result$percentComplete)
-    cat(paste0(rep(".", p - progress), collapse = ""))
-    progress <- p
+
+    if(p > progress) {
+
+      cat(paste0(rep(".", p - progress), collapse = ""))
+      progress <- p
+
+    }
 
 
   }
@@ -132,7 +137,7 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
   list.files(folder, full.names = TRUE) %>%
     map(file.remove)
 
-  cat("cleanup complete")
+  cat("cleanup complete", "\n")
 
 
   return(res)

@@ -3,22 +3,22 @@
 #'
 #' @return
 #' @export
-#' @import sodium qualtRics tibble dplyr
+#' @import sodium qualtRics tibble dplyr httr
 #'
 #' @examples
 list_surveys <- function(search = "") {
 
-  qualtRics::registerOptions(
-    api_token = decrypt_token("Z:/R/qxk.rds"),
-    root_url = "ca1.qualtrics.com")
+  if(Sys.getenv("QUALTRICS_API_KEY") == "") {
 
-  res <- arrange(
-    mutate_if(
-      tibble::as_tibble(qualtRics::getSurveys()),
-      is.factor, as.character),
-    lastModified)
+    register_options()
 
-  Sys.unsetenv(c("QUALTRICS_API_KEY", "QUALTRICS_ROOT_URL"))
+  }
+
+  req <- httr::VERB("GET", paste0(Sys.getenv("QUALTRICS_ROOT_URL"), "/API/v3/surveys"),
+                    httr::add_headers(headers())) %>%
+    httr::content()
+
+  res <- req$result$elements %>% bind_rows
 
   if(search == "") {
 
@@ -30,7 +30,7 @@ list_surveys <- function(search = "") {
       dplyr::arrange(
         dplyr::mutate(res,
           sd = stringdist::stringdist(tolower(search), tolower(name),
-            weight = c(i = 0.01, d = 1, s = 0.9, t = 0.1))), sd), -sd)
+            weight = c(i = 0.01, d = 1, s = 0.9, t = 1))), sd), -sd)
 
   }
 
