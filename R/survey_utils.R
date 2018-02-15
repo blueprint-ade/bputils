@@ -85,18 +85,17 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
   check_url <- paste0(root_url, "/", post_content$result$id)
 
   check_request <- httr::VERB("GET", url = check_url, httr::add_headers(headers()))
-  print(check_request)
 
   file_url <- paste0(check_url, "/file")
 
   progress <- 0
-
+  cat("progress: \n")
   while(progress < 100) {
-    cat("progress: \n")
+
     check_request <- httr::VERB("GET", url = check_url, httr::add_headers(headers())) %>%
       httr::content()
-    p <- check_request$result$percentComplete
-    cat(p, "\n")
+    p <- floor(check_request$result$percentComplete)
+    cat(paste0(rep(".", p - progress), collapse = ""))
     progress <- p
 
 
@@ -104,7 +103,7 @@ get_survey <- function(id, folder = "Z:/R/temp", fname = "qxre.zip", format = "s
 
   req <- httr::GET(file_url, httr::add_headers(headers()))
 
-  cat("get status: ", req$status_code, "\n")
+  cat("\n\nget status: ", req$status_code, "\n")
 
   if(req$status_code == 404) {
 
