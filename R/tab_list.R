@@ -98,7 +98,7 @@ tabset <- function(y, ..., by = none) {
 
   fun <- function(dat) {
 
-    vars %>% map(~. %>% tab(!!.x, !!y, n = FALSE, print = FALSE, row = TRUE, row_p = TRUE)) %>%
+    vars %>% map(~. %>% tab(!!.x, !!y, n = FALSE, print = FALSE, row = TRUE, row_p = TRUE, total_row = TRUE)) %>%
       map(~.(dat)) %>%
       set_names(vars %>% map(quo_name))
 
@@ -125,22 +125,6 @@ tester <- function(args = list(n = FALSE, print = FALSE, row = TRUE, row_p = TRU
 
 
 
-
-}
-
-
-poop <- function(...) {
-
-  x <- quos(...)
-  y <- list(...)
-  z <- quos(x = 5, y = 10)
-  z_list <- quos(list(x = 5, y = 10))
-
-  sumxy(UQ(y))
-
-  # print(x)
-  # print(y)
-  # print(z)
 
 }
 
