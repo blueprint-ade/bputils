@@ -1,0 +1,68 @@
+---
+title: "Blueprint + Qualtrics"
+author: "tmcmanus"
+date: "March 16, 2018"
+output: 
+    revealjs::revealjs_presentation:
+        highlight: pygments
+        center: true
+        transition: fade
+---
+# Current state {data-background=#c4edee}
+
+## Outline {data-background=#c4edee}
+
+  - Areas of strength
+  - Opportunities moving forward
+  - Unexpected risks and costs
+  
+## Areas of strength {data-background=#c4edee}
+
+  - Usability
+  - Distribution
+  - Integration capacity
+
+## Opportunities moving forward {data-background=#c4edee}
+
+  - Our growth rate as a company and client
+  - High-value touch-points in the Ontario Government
+
+## Unexpected risks and costs {data-background=#c4edee}
+
+We have experienced several incidents that have changed our initial perspective on the risk and cost associated with the Qualtrics platform, from the close of our initial negotiations last year. 
+
+  - Critical service outage
+  - Survey builder inflexibility
+  - Incremental feature costs
+
+For each, we estimate that an additional 5% should be added to our discount, bringing us from 16% percent to 31%
+  
+
+# Unexpected risks and costs {data-background=#c4eec7}
+
+## Critical service outage {data-background=#c4eec7}
+
+  - On xxxx-xx-xx at 10:30 AM an enrollment session was scheduled for a pilot program we are evaluating
+  - Participants at the sessions were intended to complete our surveys through Qualtrics
+  - We needed live access to our contact lists to provide support for our clients on the ground
+  - At 9:30 AM our insights contact list was mistakenly replaced with the target audience package, and we lost the ability to access contacts
+  - Ultimately, our access was restored at 10:20 AM, allowing us to provide critical support, but it raises the possibility of it happening again. 
+  
+## Survey builder inflexibility {data-background=#c4eec7}
+
+  - In several cases, the question builder in RC has been unable to meet our clients' requirements.
+  - An unexpected amount of time has been spent building custom javascript to achieve functionality that exists natively in cheaper survey platforms. 
+  - Even after the time spent, the lack of available resources make identifying and using best practices time consuming and difficult. 
+  
+## Incremental feature costs {data-background=#c4eec7}
+
+  - Add-ons have been surprisingly expensive
+  - In particular, we were given a quote for a white-label url, which came to ~2.5X what we expected it to be.
+  - We are seeking additional discount to mitigate the shocks of any add-on services we need in the following year. 
+  
+# Looking ahead {data-background=#d0c4ee}
+
+## Future state options {data-background=#d0c4ee}
+
+  - Blueprint moves forward with the contract proposed in the latest invoice
+  - We negotiate a deal that will allow us to close out our current contracts that depend on Qualtrics, and look for another survey provider. 

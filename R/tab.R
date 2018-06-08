@@ -62,6 +62,29 @@ tab <- function(dat, x, y, n = FALSE,
 
 }
 
+#' Simple count with proportions
+#'
+#' @param dat
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+count_prop <- function(dat, x) {
+
+  quo_x <- enquo(x)
+
+
+  dat %>% select(!!quo_x) %>%
+    mutate(N = n()) %>%
+    count(!!quo_x, N) %>%
+    mutate(
+      p = n / N) %>%
+    select(-N)
+
+}
+
 
 #' Calculate chisq and out-put a dataframe
 #'

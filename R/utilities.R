@@ -1,3 +1,17 @@
+#' Load fonts for win, pdf, and postscript devices
+#'
+#' @return
+#' @export
+#' @import extrafont
+#'
+#' @examples
+fonts <- function() {
+  extrafont::loadfonts(device = "win", quiet = TRUE)
+  extrafont::loadfonts(device = "pdf", quiet = TRUE)
+  extrafont::loadfonts(device = "postscript", quiet = TRUE)
+}
+
+
 #' Bind a folder of separate data files with the same headings into one object
 #' takes excel, stata, spss, fixed width files, and standard table formats
 #'
@@ -137,7 +151,5 @@ read_raw_excel = function(file_name) {
 
   return(clean_excel)
 }
-
-
 
 
